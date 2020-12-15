@@ -8,19 +8,74 @@
     tools:context=".MainActivity"
     >
 
-    <Button
+    <TextView
+        android:id="@+id/txt_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_marginRight="10sp"
+        android:layout_marginLeft="10sp"
+        android:background="@drawable/txt_rectborder"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_marginRight="10sp"
+        android:layout_marginLeft="10sp"
+        android:background="@drawable/txt_radiuborder"
+        app:layout_constraintTop_toBottomOf="@+id/txt_show"
+        app:layout_constraintBottom_toTopOf="@+id/txtShow1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
 
 
 
+    <TextView
+        android:id="@+id/txtShow1"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:background="@drawable/gradient_linear"
+        app:layout_constraintTop_toBottomOf="@+id/btn"
+        app:layout_constraintBottom_toTopOf="@+id/txtShow2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
 
+
+        />
+
+    <TextView
+        android:id="@+id/txtShow2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/gradient_radial"
+        app:layout_constraintTop_toBottomOf="@+id/txtShow1"
+        app:layout_constraintBottom_toTopOf="@+id/txtShow3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        />
+
+    <TextView
+        android:id="@+id/txtShow3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/gradient_sweep"
+        app:layout_constraintTop_toBottomOf="@+id/txtShow2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
