@@ -1,51 +1,51 @@
 package com.eric.fourth;
 
-import android.annotation.SuppressLint;
 import android.graphics.drawable.ClipDrawable;
+import android.graphics.drawable.RotateDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private SeekBar mSeekbar;
-    private TextView mTvShow;
-    private ImageView mImageShow;
+    private RotateDrawable rd;
+    private final Handler handler = new Handler(Looper.myLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0x123) {
+                if (rd.getLevel() >= 10000){
+                    Toast.makeText(MainActivity.this, "转完了~",Toast.LENGTH_LONG).show();
+                }
+                rd.setLevel(rd.getLevel() + 400);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mSeekbar = findViewById(R.id.seekbar);
-        mTvShow = findViewById(R.id.tv_info);
-        mImageShow = findViewById(R.id.iv_show);
-
-        mSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @SuppressLint("SetTextI18n")
+        ImageView img_show = (ImageView) findViewById(R.id.img_show);
+        // 核心实现代码
+        rd = (RotateDrawable) img_show.getDrawable();
+        final Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int max = seekBar.getMax();
-                double scale = (double) progress / (double) max;
-                ClipDrawable drawable = (ClipDrawable) mImageShow.getBackground();
-                drawable.setLevel((int) (10000 * scale));
-                mTvShow.setText(progress + "");
+            public void run() {
+                handler.sendEmptyMessage(0x123);
+                if (rd.getLevel() >= 10000) {
+                    timer.cancel();
+                }
             }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
+        }, 0, 300);
     }
 }
