@@ -9,8 +9,21 @@
         android:id="@+id/img_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/level_list"
         android:contentDescription="@string/app_name"
-        android:onClick="test"
-        android:src="@drawable/level_cir" />
+        />
+
+    <Button
+        android:id="@+id/btn_on"
+        android:text="light on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_off"
+        android:text="light off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>
