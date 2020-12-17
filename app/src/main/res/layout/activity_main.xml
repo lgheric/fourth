@@ -5,39 +5,9 @@
     android:gravity="center"
     android:orientation="vertical">
 
-
-    <ImageView
-        android:id="@+id/img_show"
+    <Button
+        android:id="@+id/btn_cut"
         android:text="@string/app_name"
-        android:contentDescription="@string/app_name"
-        style="@style/imgSize"
-        />
-
-    <ImageView
-        android:id="@+id/img_show2"
-        android:text="@string/app_name"
-        android:contentDescription="@string/app_name"
-        style="@style/imgSize"
-        />
-
-    <ImageView
-        android:id="@+id/img_show3"
-        android:text="@string/app_name"
-        android:contentDescription="@string/app_name"
-        style="@style/imgSize"
-        />
-
-    <ImageView
-        android:id="@+id/img_show4"
-        android:text="@string/app_name"
-        android:contentDescription="@string/app_name"
-        style="@style/imgSize"
-        />
-
-    <ImageView
-        android:id="@+id/img_show5"
-        android:text="@string/app_name"
-        android:contentDescription="@string/app_name"
         style="@style/imgSize"
         />
 
