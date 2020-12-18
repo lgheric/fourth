@@ -15,44 +15,45 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private LinearLayout mGallery;
-    private int[] mImgIds;
-    private LayoutInflater mInflater;
+    private MyHorizontalScrollView mHorizontalScrollView;
+    private HorizontalScrollViewAdapter mAdapter;
+    private ImageView mImage;
+    private List<Integer> mDatas = new ArrayList<Integer>(Arrays.asList(
+            R.mipmap.after1, R.mipmap.after2, R.mipmap.after3, R.mipmap.after4, R.mipmap.after5, R.mipmap.after6, R.mipmap.after7, R.mipmap.after8, R.mipmap.after9));
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        mInflater = LayoutInflater.from(this);
-        initData();
-        initView();
-    }
+        mImage = findViewById(R.id.id_content);
 
-    private void initData() {
-        mImgIds = new int[] { R.mipmap.after1, R.mipmap.after2, R.mipmap.after3,R.mipmap.after4,
-                R.mipmap.after5,R.mipmap.after6,R.mipmap.after7,R.mipmap.after8,R.mipmap.after9
-        };
-    }
-
-    @SuppressLint("SetTextI18n")
-    private void initView() {
-        mGallery = findViewById(R.id.id_gallery);
-
-        for (int mImgId : mImgIds) {
-            View view = mInflater.inflate(R.layout.activity_index_gallery_item,
-                    mGallery, false);
-            ImageView img = view.findViewById(R.id.id_index_gallery_item_image);
-            img.setImageResource(mImgId);
-            TextView txt = view.findViewById(R.id.id_index_gallery_item_text);
-            txt.setText("some info");
-            txt.setTextColor(Color.BLACK);
-            mGallery.addView(view);
-        }
+        mHorizontalScrollView = findViewById(R.id.id_horizontalScrollView);
+        mAdapter = new HorizontalScrollViewAdapter(this, mDatas);
+        mHorizontalScrollView.setCurrentImageChangeListener(new MyHorizontalScrollView.CurrentImageChangeListener() {
+            @Override
+            public void onCurrentImgChanged(int position, View viewIndicator) {
+                mImage.setImageResource(mDatas.get(position));
+                viewIndicator.setBackgroundColor(Color.parseColor("#AA024DA4"));
+            }
+        });
+        mHorizontalScrollView.setOnItemClickListener(new MyHorizontalScrollView.OnItemClickListener() {
+            @Override
+            public void onClick(View view, int pos) {
+                mImage.setImageResource(mDatas.get(pos));
+                view.setBackgroundColor(Color.parseColor("#AA024DA4"));
+            }
+        });
+        mHorizontalScrollView.initDatas(mAdapter);
     }
 }
 
