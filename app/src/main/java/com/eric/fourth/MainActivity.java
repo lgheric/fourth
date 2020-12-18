@@ -1,73 +1,58 @@
 package com.eric.fourth;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener,
-        View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    private Context mContext;
-    private ImageView img_choose;
-    private Button btn_choose;
-    private Gallery gay_choose;
-    private int index = 0;
-    private MeiziAdapter mAdapter = null;
-    private int[] imageIds = new int[]
-            {
-                    R.mipmap.pre1, R.mipmap.pre2, R.mipmap.pre3, R.mipmap.pre4,
-                    R.mipmap.pre5, R.mipmap.pre6, R.mipmap.pre7, R.mipmap.pre8,
-                    R.mipmap.pre9, R.mipmap.pre10, R.mipmap.pre11, R.mipmap.pre12,
-                    R.mipmap.pre13, R.mipmap.pre14, R.mipmap.pre15, R.mipmap.pre16,
-                    R.mipmap.pre17, R.mipmap.pre18, R.mipmap.pre19, R.mipmap.pre20,
-                    R.mipmap.pre21
-            };
+    private LinearLayout mGallery;
+    private int[] mImgIds;
+    private LayoutInflater mInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        mContext = MainActivity.this;
-        bindViews();
+        mInflater = LayoutInflater.from(this);
+        initData();
+        initView();
     }
 
-    private void bindViews() {
-        img_choose = findViewById(R.id.img_choose);
-        btn_choose = findViewById(R.id.btn_choose);
-        gay_choose = findViewById(R.id.gay_choose);
-
-
-        mAdapter = new MeiziAdapter(mContext, imageIds);
-        gay_choose.setAdapter(mAdapter);
-        gay_choose.setOnItemSelectedListener(this);
-        btn_choose.setOnClickListener(this);
-
+    private void initData() {
+        mImgIds = new int[] { R.mipmap.after1, R.mipmap.after2, R.mipmap.after3,R.mipmap.after4,
+                R.mipmap.after5,R.mipmap.after6,R.mipmap.after7,R.mipmap.after8,R.mipmap.after9
+        };
     }
 
+    @SuppressLint("SetTextI18n")
+    private void initView() {
+        mGallery = findViewById(R.id.id_gallery);
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        img_choose.setImageResource(imageIds[position]);
-        index = position;
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
-
-    @Override
-    public void onClick(View v) {
-        Intent it = new Intent(mContext,CaClothes.class);
-        Bundle bundle = new Bundle();
-        bundle.putCharSequence("num", Integer.toString(index));
-        it.putExtras(bundle);
-        startActivity(it);
+        for (int mImgId : mImgIds) {
+            View view = mInflater.inflate(R.layout.activity_index_gallery_item,
+                    mGallery, false);
+            ImageView img = view.findViewById(R.id.id_index_gallery_item_image);
+            img.setImageResource(mImgId);
+            TextView txt = view.findViewById(R.id.id_index_gallery_item_text);
+            txt.setText("some info");
+            txt.setTextColor(Color.BLACK);
+            mGallery.addView(view);
+        }
     }
 }
+
