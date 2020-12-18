@@ -35,27 +35,29 @@ public class MyView  extends View {
         super(context, attrs, defStyleAttr);init();
     }
 
-    public MyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);init();
-    }
-
+//    public MyView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+//        super(context, attrs, defStyleAttr, defStyleRes);init();
+//    }
+//
 
     private void init(){
-//        mPath = new Path();
-//        mPaint = new Paint();   //初始化画笔
-//        mPaint.setColor(Color.GREEN);
-//        mPaint.setAntiAlias(true);
-//        mPaint.setDither(true);
-//        mPaint.setStyle(Paint.Style.STROKE);
-//        mPaint.setStrokeJoin(Paint.Join.ROUND); //结合处为圆角
-//        mPaint.setStrokeCap(Paint.Cap.ROUND); // 设置转弯处为圆角
-//        mPaint.setStrokeWidth(20);   // 设置画笔宽度
-//
-//        // 初始化bitmap,Canvas
-//        int width = getMeasuredWidth();
-//        int height = getMeasuredHeight();
-//        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-//        mCanvas = new Canvas(mBitmap);
+        mPath = new Path();
+        mPaint = new Paint();   //初始化画笔
+        mPaint.setColor(Color.GREEN);
+        mPaint.setAntiAlias(true);
+        mPaint.setDither(true);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND); //结合处为圆角
+        mPaint.setStrokeCap(Paint.Cap.ROUND); // 设置转弯处为圆角
+        mPaint.setStrokeWidth(20);   // 设置画笔宽度
+
+        // 初始化bitmap,Canvas
+        int width = 600;//getMeasuredWidth();
+        int height = 600;//getMeasuredHeight();
+
+        System.out.println("Width:"+width+" Height:"+height);
+        mBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
+        mCanvas = new Canvas(mBitmap);
     }
 
     @Override
