@@ -1,61 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/ly_bar"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_alignParentBottom="true">
-
-        <Button
-            android:id="@+id/btn_reset"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/reset"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/btn_left"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/left_skew"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/btn_right"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/right_skew"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/btn_zoomin"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/zoom_in"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/btn_zoomout"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/zoom_out"
-            tools:ignore="ButtonStyle" />
-    </LinearLayout>
-
-
     <com.eric.fourth.MyView
-        android:id="@+id/myView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/ly_bar" />
+        />
 
 </RelativeLayout>

@@ -1,22 +1,27 @@
 package com.eric.fourth;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 public class MyView  extends View {
 
+    //将水平和竖直方向上都划分为20格
+    private final int WIDTH = 20;
+    private final int HEIGHT = 20;
+    private final int COUNT = (WIDTH + 1) * (HEIGHT + 1);  //记录该图片包含21*21个点
+    private final float[] verts = new float[COUNT * 2];    //扭曲前21*21个点的坐标
+    private final float[] orig = new float[COUNT * 2];    //扭曲后21*21个点的坐标
     private Bitmap mBitmap;
-    private Matrix matrix = new Matrix();
-    private float sx = 0.0f;          //设置倾斜度
-    private int width,height;         //位图宽高
-    private float scale = 1.0f;       //缩放比例
-    private int method = 0;
-    private Bitmap bitmap;
+    private float bH,bW;
+
 
     public MyView(Context context) {
         this(context, null);
@@ -32,46 +37,67 @@ public class MyView  extends View {
     }
 
     private void init() {
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.after7);
-        width = mBitmap.getWidth();
-        height = mBitmap.getHeight();
-        bitmap = Bitmap.createBitmap(mBitmap,0,0,width,height,matrix,true);
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.after11);
+        bW = mBitmap.getWidth();
+        bH = mBitmap.getHeight();
+        int index = 0;
+        //初始化orig和verts数组。
+        for (int y = 0; y <= HEIGHT; y++)
+        {
+            float fy = bH * y / HEIGHT;
+            for (int x = 0; x <= WIDTH; x++)
+            {
+                float fx = bW * x / WIDTH;
+                orig[index * 2 + 0] = verts[index * 2 + 0] = fx;
+                orig[index * 2 + 1] = verts[index * 2 + 1] = fy;
+                index += 1;
+            }
+        }
+        //设置背景色
+        setBackgroundColor(Color.WHITE);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        switch (method){
-            case 0:
-                matrix.reset();
-                break;
-            case 1:
-                sx += 0.1;
-                matrix.setSkew(sx,0);
-                break;
-            case 2:
-                sx -= 0.1;
-                matrix.setSkew(sx,0);
-                break;
-            case 3:
-                if(scale < 2.0){
-                    scale += 0.1;
-                }
-                matrix.setScale(scale,scale);
-                break;
-            case 4:
-                if(scale > 0.5){
-                    scale -= 0.1;
-                }
-                matrix.setScale(scale,scale);
-                break;
-        }
-        //根据原始位图与Matrix创建新图片
-        canvas.drawBitmap(bitmap,matrix,null);    //绘制新位图
+        canvas.drawBitmapMesh(mBitmap, WIDTH, HEIGHT, verts
+                , 0, null, 0, null);
     }
 
-    public void setMethod(int i){
-        method = i;
-        postInvalidate();
+    //工具方法，用于根据触摸事件的位置计算verts数组里各元素的值
+    private void warp(float cx, float cy)
+    {
+        for (int i = 0; i < COUNT * 2; i += 2)
+        {
+            float dx = cx - orig[i + 0];
+            float dy = cy - orig[i + 1];
+            float dd = dx * dx + dy * dy;
+            //计算每个座标点与当前点（cx、cy）之间的距离
+            float d = (float)Math.sqrt(dd);
+            //计算扭曲度，距离当前点（cx、cy）越远，扭曲度越小
+            float pull = 80000 / ((float) (dd * d));
+            //对verts数组（保存bitmap上21 * 21个点经过扭曲后的座标）重新赋值
+            if (pull >= 1)
+            {
+                verts[i + 0] = cx;
+                verts[i + 1] = cy;
+            }
+            else
+            {
+                //控制各顶点向触摸事件发生点偏移
+                verts[i + 0] = orig[i + 0] + dx * pull;
+                verts[i + 1] = orig[i + 1] + dy * pull;
+            }
+        }
+        //通知View组件重绘
+        invalidate();
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        //调用warp方法根据触摸屏事件的座标点来扭曲verts数组
+        warp(event.getX(), event.getY());
+        return true;
     }
 }
