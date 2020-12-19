@@ -8,4 +8,9 @@
     <string name="save">保存</string>
     <string name="cancel">取消</string>
     <string name="strip_her">脱光她!</string>
+    <string name="reset">重置</string>
+    <string name="left_skew">左倾</string>
+    <string name="right_skew">右倾</string>
+    <string name="zoom_in">放大</string>
+    <string name="zoom_out">缩小</string>
 </resources>
