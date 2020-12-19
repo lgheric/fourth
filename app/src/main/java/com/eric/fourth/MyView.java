@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Region;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class MyView  extends View {
 
-    private Paint mPaint;
+    private Paint paint;
+    private TextPaint textPaint;
 
     public MyView(Context context) {
         this(context, null);init();
@@ -25,18 +28,93 @@ public class MyView  extends View {
     }
 
     private void init(){
-        mPaint = new Paint();
+        paint = new Paint();
+        textPaint = new TextPaint();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mPaint.setAntiAlias(true);
-        mPaint.setColor(Color.WHITE);
-        mPaint.setTextSize(60);
+        super.onDraw(canvas);
 
-        canvas.translate(300,300);
-        canvas.clipRect(100, 100, 300, 300);                //设置显示范围
-        canvas.drawColor(Color.BLACK);                      //白色背景
-        canvas.drawText("双11，继续吃我的狗粮...", 150, 300, mPaint); //绘制字符串
+        int width = getMeasuredWidth();
+        int height = getMeasuredHeight();
+
+
+        paint.setColor(Color.LTGRAY);
+
+
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(24);
+
+        canvas.drawRect(0, 0, width, height, paint);
+
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(Color.RED);
+        canvas.drawRect(50, 50, 300, 300,paint);
+        paint.setColor(Color.CYAN);
+        canvas.drawRect(250, 250, 500, 500,paint);
+        paint.setColor(Color.BLACK);
+        canvas.drawRect(50, 50, 500, 500,paint);
+
+        //========================  default & INTERSECT  ==========================
+        canvas.save();
+        canvas.clipRect(550, 0, 800, 300);
+        canvas.clipRect(750, 250, 1000, 500);
+        canvas.clipRect(550, 0, 1000, 500);
+        canvas.drawColor(Color.YELLOW);
+        canvas.restore();
+
+        canvas.drawText("default & INTERSECT",700,550,textPaint);
+
+        //========================  DIFFERENCE  ==========================
+        canvas.save();
+        canvas.clipRect(50, 600, 300, 900);
+        canvas.clipRect(250, 850, 500, 1100, Region.Op.DIFFERENCE);
+        canvas.clipRect(50, 600, 500, 1100);
+        canvas.drawColor(Color.YELLOW);
+        canvas.restore();
+
+        canvas.drawText("DIFFERENCE",200,1150,textPaint);
+
+        //========================  REVERSE_DIFFERENCE  ==========================
+        canvas.save();
+        canvas.clipRect(550, 600, 800, 900);
+        canvas.clipRect(750, 850, 1000, 1100, Region.Op.REVERSE_DIFFERENCE);
+        canvas.clipRect(550, 600, 1000, 1100);
+        canvas.drawColor(Color.YELLOW);
+        canvas.restore();
+
+        canvas.drawText("REVERSE_DIFFERENCE",700,1150,textPaint);
+
+        //========================  REPLACE  ==========================
+        canvas.save();
+        canvas.clipRect(50, 1150, 300, 1450);
+        canvas.clipRect(250, 1400, 500, 1650, Region.Op.REPLACE);
+        canvas.clipRect(50, 1150, 500, 1650);
+        canvas.drawColor(Color.YELLOW);
+        canvas.restore();
+
+        canvas.drawText("REPLACE",200,1700,textPaint);
+
+        //========================  XOR  ==========================
+        canvas.save();
+        canvas.clipRect(550, 1150, 800, 1450);
+        canvas.clipRect(750, 1400, 1000, 1650, Region.Op.XOR);
+        canvas.clipRect(550, 1150, 1000, 1650);
+        canvas.drawColor(Color.YELLOW);
+        canvas.restore();
+
+        canvas.drawText("XOR",700,1700,textPaint);
+
+        //========================  UNION  ==========================
+        canvas.save();
+        canvas.clipRect(50, 1700, 300, 2000);
+        canvas.clipRect(250, 1950, 500, 2200, Region.Op.UNION);
+        canvas.clipRect(50, 1700, 500, 2200);
+        canvas.drawColor(Color.YELLOW);
+        canvas.restore();
+
+        canvas.drawText("UNION",200,2250,textPaint);
     }
+
 }
