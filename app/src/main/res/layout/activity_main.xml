@@ -5,9 +5,10 @@
     android:background="@android:color/background_light"
     android:orientation="vertical" >
 
-    <com.eric.fourth.EmbossMaskFilterView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </com.eric.fourth.EmbossMaskFilterView>
+    <com.eric.fourth.RoundImageView
+        android:id="@+id/img_round"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_margin="5dp"/>
 
 </LinearLayout>
