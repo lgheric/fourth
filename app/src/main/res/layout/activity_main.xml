@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <com.eric.fourth.StripMeiZi
+    <com.eric.fourth.LoadTextView
+        android:id="@+id/view_lt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
