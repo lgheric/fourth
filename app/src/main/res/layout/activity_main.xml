@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <com.eric.fourth.LoadTextView
-        android:id="@+id/view_lt"
+    <ImageView
+        android:id="@+id/img_show"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:contentDescription="@string/app_name" />
 
-</RelativeLayout>
+    <GridLayout
+        android:id="@+id/gp_matrix"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:columnCount="5"
+        android:rowCount="4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/reset"
+            tools:ignore="ButtonStyle" />
+        <Button
+            android:id="@+id/btn_Change"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/change"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+</LinearLayout>

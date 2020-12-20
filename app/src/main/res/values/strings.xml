@@ -13,4 +13,5 @@
     <string name="right_skew">右倾</string>
     <string name="zoom_in">放大</string>
     <string name="zoom_out">缩小</string>
+    <string name="change">变换</string>
 </resources>
