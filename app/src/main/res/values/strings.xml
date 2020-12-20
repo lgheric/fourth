@@ -17,4 +17,6 @@
     <string name="hue">色调 :</string>
     <string name="saturation">饱和度:</string>
     <string name="lum">亮度 :</string>
+    <string name="color">颜色</string>
+    <string name="mode">模式</string>
 </resources>

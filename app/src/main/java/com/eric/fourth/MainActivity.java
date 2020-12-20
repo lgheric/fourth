@@ -1,64 +1,43 @@
 package com.eric.fourth;
 
-import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.LightingColorFilter;
-import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.GridView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import java.util.ArrayList;
 
-    private ImageView img_meizi;
-    private EditText edit_mul;
-    private EditText edit_add;
-    private Button btn_change;
-    private Bitmap mBitmap;
+public class MainActivity extends AppCompatActivity {
+
+    private GridView gd_show;
+    private ArrayList<Data> items = null;
+    private MyAdapter<Data> myAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pre9);
-        bindViews();
-    }
+        gd_show = findViewById(R.id.gd_show);
 
-    private void bindViews() {
-        img_meizi = findViewById(R.id.img_meizi);
-        edit_mul = findViewById(R.id.edit_mul);
-        edit_add = findViewById(R.id.edit_add);
-        btn_change = findViewById(R.id.btn_change);
-
-        btn_change.setOnClickListener(this);
-
-    }
-
-
-    private Bitmap ProcessImage(Bitmap bp,int mul,int add){
-        Bitmap bitmap = Bitmap.createBitmap(bp.getWidth(),bp.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColorFilter(new LightingColorFilter(mul,add));
-        canvas.drawBitmap(bp,0,0,paint);
-        return bitmap;
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_change:
-                int mul = Integer.parseInt(edit_mul.getText().toString());
-                int add = Integer.parseInt(edit_add.getText().toString());
-                img_meizi.setImageBitmap(ProcessImage(mBitmap,mul,add));
-                break;
+        //填充数据，遍历Mode模式：
+        items = new ArrayList<Data>();
+        for (PorterDuff.Mode mode : PorterDuff.Mode.class.getEnumConstants()) {
+            items.add(new Data(0x77E50961, mode));
+            items.add(new Data(0xFFE50961, mode));
+            items.add(new Data(0x77FFFFFF, mode));
+            items.add(new Data(0xFFFFFFFF, mode));
+            items.add(new Data(0x77000000, mode));
+            items.add(new Data(0xFF000000, mode));
         }
+        myAdapter = new MyAdapter<Data>(items, R.layout.view_item) {
+            @Override
+            public void bindView(ViewHolder holder, Data obj) {
+                holder.setColorFilter(R.id.img_show, obj.getColor(), obj.getMode());
+                holder.setText(R.id.tv_color, String.format("%08X", obj.getColor()));
+                holder.setText(R.id.tv_mode, obj.getMode().toString());
+            }
+        };
+        gd_show.setAdapter(myAdapter);
     }
 }
