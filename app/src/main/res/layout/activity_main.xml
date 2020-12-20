@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <com.eric.fourth.CircleImageView
-        android:layout_width="160dp"
-        android:layout_height="240dp"
-        android:layout_margin="10dp"
-        android:src="@mipmap/after2"
-        app:type="circle" />
+    <com.eric.fourth.StripMeiZi
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    <com.eric.fourth.CircleImageView
-        android:layout_width="160dp"
-        android:layout_height="280dp"
-        android:layout_margin="10dp"
-        android:src="@mipmap/after5"
-        app:Radius="30dp"
-        app:type="round" />
-
-</LinearLayout>
+</RelativeLayout>
