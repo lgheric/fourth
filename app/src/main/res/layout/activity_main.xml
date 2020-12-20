@@ -1,68 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="5dp"
+    tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/img_meizi"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24dp"
-        android:layout_marginTop="24dp"
+        android:src="@mipmap/pre9"
         android:contentDescription="@string/app_name" />
 
-
-    <TextView
-        android:id="@+id/txt_hue"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
+    <EditText
+        android:id="@+id/edit_mul"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/img_meizi"
-        android:gravity="center"
-        android:text="@string/hue"
-        android:textSize="18sp" />
+        android:text="0"
+        android:autofillHints=""
+        android:inputType="text"
+        android:textAlignment="center"
+        tools:ignore="LabelFor" />
 
-    <SeekBar
-        android:id="@+id/sb_hue"
+    <EditText
+        android:id="@+id/edit_add"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_below="@id/img_meizi"
-        android:layout_toEndOf="@id/txt_hue" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_mul"
+        android:text="0"
+        android:textAlignment="center"
+        android:autofillHints=""
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
 
-    <TextView
-        android:id="@+id/txt_saturation"
+    <Button
+        android:id="@+id/btn_change"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_below="@id/txt_hue"
-        android:gravity="center"
-        android:text="@string/saturation"
-        android:textSize="18sp" />
-
-    <SeekBar
-        android:id="@+id/sb_saturation"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_below="@id/sb_hue"
-        android:layout_toEndOf="@id/txt_saturation" />
-
-
-    <TextView
-        android:id="@+id/txt_lun"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_below="@id/txt_saturation"
-        android:gravity="center"
-        android:text="@string/lum"
-        android:textSize="18sp" />
-
-    <SeekBar
-        android:id="@+id/sb_lum"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_below="@id/sb_saturation"
-        android:layout_toEndOf="@id/txt_lun" />
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@id/img_meizi"
+        android:layout_below="@id/edit_add"
+        android:text="变化" />
 
 </RelativeLayout>
