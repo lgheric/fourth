@@ -14,4 +14,7 @@
     <string name="zoom_in">放大</string>
     <string name="zoom_out">缩小</string>
     <string name="change">变换</string>
+    <string name="hue">色调 :</string>
+    <string name="saturation">饱和度:</string>
+    <string name="lum">亮度 :</string>
 </resources>

@@ -1,119 +1,76 @@
 package com.eric.fourth;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener{
 
-    private ImageView img_show;
-    private GridLayout gp_matrix;
-    private Button btn_reset;
-    private Button btn_Change;
+    private ImageView img_meizi;
+    private SeekBar sb_hue;
+    private SeekBar sb_saturation;
+    private SeekBar sb_lum;
+    private final static int MAX_VALUE = 255;
+    private final static int MID_VALUE = 127;
+    private float mHue = 0.0f;
+    private float mStauration = 1.0f;
+    private float mLum = 1.0f;
     private Bitmap mBitmap;
-    private int mEtWidth, mEtHeight;
-    private EditText[] mEts = new EditText[20];
-    private float[] mColorMatrix = new float[20];
-    private Context mContext;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mContext = MainActivity.this;
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.pre6);
         bindViews();
-
-
-        gp_matrix.post(new Runnable() {
-            @Override
-            public void run() {
-                mEtWidth = gp_matrix.getWidth() / 5;
-                mEtHeight = gp_matrix.getHeight() / 4;
-                //添加5 * 4个EditText
-                for (int i = 0; i < 20; i++) {
-                    EditText editText = new EditText(mContext);
-                    editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                    mEts[i] = editText;
-                    gp_matrix.addView(editText, mEtWidth, mEtHeight);
-                }
-                initMatrix();
-            }
-        });
     }
 
     private void bindViews() {
-        img_show = findViewById(R.id.img_show);
-        gp_matrix = findViewById(R.id.gp_matrix);
-        btn_reset = findViewById(R.id.btn_reset);
-        btn_Change = findViewById(R.id.btn_Change);
+        img_meizi = findViewById(R.id.img_meizi);
+        sb_hue = findViewById(R.id.sb_hue);
+        sb_saturation = findViewById(R.id.sb_saturation);
+        sb_lum = findViewById(R.id.sb_lum);
 
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.meinv9_horizontal);
-        img_show.setImageBitmap(mBitmap);
+        img_meizi.setImageBitmap(mBitmap);
+        sb_hue.setMax(MAX_VALUE);
+        sb_hue.setProgress(MID_VALUE);
+        sb_saturation.setMax(MAX_VALUE);
+        sb_saturation.setProgress(MID_VALUE);
+        sb_lum.setMax(MAX_VALUE);
+        sb_lum.setProgress(MID_VALUE);
 
-        btn_reset.setOnClickListener(this);
-        btn_Change.setOnClickListener(this);
-    }
+        sb_hue.setOnSeekBarChangeListener(this);
+        sb_saturation.setOnSeekBarChangeListener(this);
+        sb_lum.setOnSeekBarChangeListener(this);
 
-
-    //定义一个初始化颜色矩阵的方法
-    private void initMatrix() {
-        for (int i = 0; i < 20; i++) {
-            if (i % 6 == 0) {
-                mEts[i].setText(String.valueOf(1));
-            } else {
-                mEts[i].setText(String.valueOf(0));
-            }
-        }
-    }
-
-    //定义一个获取矩阵值得方法
-    private void getMatrix() {
-        for (int i = 0; i < 20; i++) {
-            mColorMatrix[i] = Float.parseFloat(mEts[i].getText().toString());
-        }
-    }
-
-    //根据颜色矩阵的值来处理图片
-    private void setImageMatrix() {
-        Bitmap bmp = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        android.graphics.ColorMatrix colorMatrix = new android.graphics.ColorMatrix();
-        colorMatrix.set(mColorMatrix);
-
-        Canvas canvas = new Canvas(bmp);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
-        canvas.drawBitmap(mBitmap, 0, 0, paint);
-        img_show.setImageBitmap(bmp);
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_Change:
-                getMatrix();
-                setImageMatrix();
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        switch (seekBar.getId()) {
+            case R.id.sb_hue:
+                mHue = (progress - MID_VALUE) * 1.0F / MID_VALUE * 180;
                 break;
-            case R.id.btn_reset:
-                initMatrix();
-                getMatrix();
-                setImageMatrix();
+            case R.id.sb_saturation:
+                mStauration = progress * 1.0F / MID_VALUE;
+                break;
+            case R.id.sb_lum:
+                mLum = progress * 1.0F / MID_VALUE;
                 break;
         }
+        img_meizi.setImageBitmap(ImageHelper.handleImageEffect(mBitmap, mHue, mStauration, mLum));
     }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {}
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {}
 }
 
