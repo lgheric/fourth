@@ -5,23 +5,42 @@
     android:orientation="vertical">
 
   <Button
-      android:id="@+id/btn_start"
+      android:id="@+id/btn_alpha"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/start" />
+      android:text="透明度渐变" />
 
   <Button
-      android:id="@+id/btn_stop"
+      android:id="@+id/btn_scale"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/stop" />
+      android:text="缩放渐变" />
+
+  <Button
+      android:id="@+id/btn_tran"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="位移渐变" />
+
+  <Button
+      android:id="@+id/btn_rotate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="旋转渐变" />
+
+  <Button
+      android:id="@+id/btn_set"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="组合渐变" />
 
   <ImageView
       android:id="@+id/img_show"
-      android:layout_width="120dp"
-      android:layout_height="120dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:background="@drawable/miao_gif"
+      android:layout_marginTop="48dp"
+      android:src="@mipmap/img_face"
       android:contentDescription="@string/app_name" />
 
 </LinearLayout>
