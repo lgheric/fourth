@@ -19,4 +19,6 @@
     <string name="lum">亮度 :</string>
     <string name="color">颜色</string>
     <string name="mode">模式</string>
+    <string name="stop">停止</string>
+    <string name="start">开始</string>
 </resources>
