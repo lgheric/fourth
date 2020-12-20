@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.eric.fourth.MyView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+    <com.eric.fourth.CircleImageView
+        android:layout_width="160dp"
+        android:layout_height="240dp"
+        android:layout_margin="10dp"
+        android:src="@mipmap/after2"
+        app:type="circle" />
 
-</RelativeLayout>
+    <com.eric.fourth.CircleImageView
+        android:layout_width="160dp"
+        android:layout_height="280dp"
+        android:layout_margin="10dp"
+        android:src="@mipmap/after5"
+        app:Radius="30dp"
+        app:type="round" />
+
+</LinearLayout>
