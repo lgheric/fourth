@@ -4,11 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <GridView
-        android:id="@+id/gd_show"
-        android:background="#FF333333"
-        android:numColumns="6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+  <com.eric.fourth.PathEffectView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      />
 
 </LinearLayout>
