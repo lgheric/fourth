@@ -104,6 +104,5 @@ public class BitmapShaderView extends View {
         mPaint.setShader(mSweepGradient);
         canvas.drawRect(bitW, bitH, bitW * 2, bitH * 2, mPaint);
 
-
     }
 }
