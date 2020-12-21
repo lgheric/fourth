@@ -1,44 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ly_root"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-  <Button
-      android:id="@+id/btn_one"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="动画1" />
-
-  <Button
-      android:id="@+id/btn_two"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="动画2" />
-
-  <Button
-      android:id="@+id/btn_three"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="动画3" />
-
-  <Button
-      android:id="@+id/btn_four"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="动画4" />
-  <Button
-      android:id="@+id/btn_five"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="动画5" />
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".MainActivity">
 
   <TextView
-      android:id="@+id/tv_pig"
-      android:layout_width="wrap_content"
+      android:id="@+id/tv_phone1"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:background="@mipmap/img_face" />
+      android:textSize="20sp" />
+
+  <TextView
+      android:id="@+id/tv_phone2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20sp" />
+
+  <TextView
+      android:id="@+id/tv_phone3"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20sp" />
+
+  <TextView
+      android:id="@+id/tv_phone4"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20sp" />
+
+  <TextView
+      android:id="@+id/tv_phone5"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20sp" />
+
+  <TextView
+      android:id="@+id/tv_phone6"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20sp" />
+
+  <TextView
+      android:id="@+id/tv_phone7"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20sp" />
+
+  <TextView
+      android:id="@+id/tv_phone8"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="16sp" />
+
+  <TextView
+      android:id="@+id/tv_phone9"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20sp" />
 
 </LinearLayout>
