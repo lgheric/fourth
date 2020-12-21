@@ -2,94 +2,76 @@ package com.eric.fourth;
 
 import android.annotation.SuppressLint;
 import android.app.Service;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btn_start;
-    private Button btn_stop;
-    private Button btn_higher;
-    private Button btn_lower;
-    private Button btn_quite;
-    private MediaPlayer mePlayer;
-    private AudioManager aManager;
-    //定义一个标志用来标示是否点击了静音按钮
-    private int flag = 1;
-
+    private Button btn_hasVibrator;
+    private Button btn_short;
+    private Button btn_long;
+    private Button btn_rhythm;
+    private Button btn_cancle;
+    private Vibrator myVibrator;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //获得系统的音频对象
-        aManager = (AudioManager) getSystemService(Service.AUDIO_SERVICE);
-        //初始化mediaplayer对象,这里播放的是raw文件中的mp3资源
-        mePlayer = MediaPlayer.create(MainActivity.this, R.raw.chuandeng);
-        //设置循环播放:
-        mePlayer.setLooping(true);
+        //获得系统的Vibrator实例:
+        myVibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
+        mContext = MainActivity.this;
         bindViews();
     }
 
     private void bindViews() {
-        btn_start = (Button) findViewById(R.id.btn_start);
-        btn_stop = (Button) findViewById(R.id.btn_stop);
-        btn_higher = (Button) findViewById(R.id.btn_higher);
-        btn_lower = (Button) findViewById(R.id.btn_lower);
-        btn_quite = (Button) findViewById(R.id.btn_quite);
+        btn_hasVibrator = (Button) findViewById(R.id.btn_hasVibrator);
+        btn_short = (Button) findViewById(R.id.btn_short);
+        btn_long = (Button) findViewById(R.id.btn_long);
+        btn_rhythm = (Button) findViewById(R.id.btn_rhythm);
+        btn_cancle = (Button) findViewById(R.id.btn_cancle);
 
-        btn_start.setOnClickListener(this);
-        btn_stop.setOnClickListener(this);
-        btn_higher.setOnClickListener(this);
-        btn_lower.setOnClickListener(this);
-        btn_quite.setOnClickListener(this);
+        btn_hasVibrator.setOnClickListener(this);
+        btn_short.setOnClickListener(this);
+        btn_long.setOnClickListener(this);
+        btn_rhythm.setOnClickListener(this);
+        btn_cancle.setOnClickListener(this);
     }
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_start:
-                btn_stop.setEnabled(true);
-                mePlayer.start();
-                btn_start.setEnabled(false);
+            case R.id.btn_hasVibrator:
+                Toast.makeText(mContext, myVibrator.hasVibrator() ? "当前设备有振动器" : "当前设备无振动器",
+                        Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btn_stop:
-                btn_start.setEnabled(true);
-                mePlayer.pause();
-                btn_stop.setEnabled(false);
+            case R.id.btn_short:
+                myVibrator.cancel();
+                myVibrator.vibrate(new long[]{100, 200, 100, 200}, 0);
+                Toast.makeText(mContext, "短振动", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btn_higher:
-                // 指定调节音乐的音频，增大音量，而且显示音量图形示意
-                aManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+            case R.id.btn_long:
+                myVibrator.cancel();
+                myVibrator.vibrate(new long[]{100, 100, 100, 1000}, 0);
+                Toast.makeText(mContext, "长振动", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btn_lower:
-                // 指定调节音乐的音频，降低音量，只有声音,不显示图形条
-                aManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND);
+            case R.id.btn_rhythm:
+                myVibrator.cancel();
+                myVibrator.vibrate(new long[]{500, 100, 500, 100, 500, 100}, 0);
+                Toast.makeText(mContext, "节奏振动", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btn_quite:
-                // 指定调节音乐的音频，根据isChecked确定是否需要静音
-                flag *= -1;
-                if (flag == -1) {
-                    aManager.setStreamMute(AudioManager.STREAM_MUSIC, true);   //API 23过期- -
-//                    aManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE,
-//                            AudioManager.FLAG_SHOW_UI);   //23以后的版本用这个
-                    btn_quite.setText("取消静音");
-                } else {
-                    aManager.setStreamMute(AudioManager.STREAM_MUSIC, false);//API 23过期- -
-//                    aManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE,
-//                            AudioManager.FLAG_SHOW_UI);  //23以后的版本用这个
-                    aManager.setMicrophoneMute(false);
-                    btn_quite.setText("静音");
-                }
-                break;
+            case R.id.btn_cancle:
+                myVibrator.cancel();
+                Toast.makeText(mContext, "取消振动", Toast.LENGTH_SHORT).show();
         }
     }
 }
