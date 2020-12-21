@@ -1,65 +1,95 @@
 package com.eric.fourth;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
+import android.app.Service;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.FileNotFoundException;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.Date;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class MainActivity extends AppCompatActivity
-{
-    TelephonyManager tManager;
+    private Button btn_start;
+    private Button btn_stop;
+    private Button btn_higher;
+    private Button btn_lower;
+    private Button btn_quite;
+    private MediaPlayer mePlayer;
+    private AudioManager aManager;
+    //定义一个标志用来标示是否点击了静音按钮
+    private int flag = 1;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // 取得TelephonyManager对象
-        tManager = (TelephonyManager)
-                getSystemService(Context.TELEPHONY_SERVICE);
-        // 创建一个通话状态监听器
-        PhoneStateListener listener = new PhoneStateListener()
-        {
-            @Override
-            public void onCallStateChanged(int state, String number)
-            {
-                switch (state)
-                {
-                    // 无任何状态
-                    case TelephonyManager.CALL_STATE_IDLE:
-                        break;
-                    case TelephonyManager.CALL_STATE_OFFHOOK:
-                        break;
-                    // 来电铃响时
-                    case TelephonyManager.CALL_STATE_RINGING:
-                        OutputStream os = null;
-                        try
-                        {
-                            os = openFileOutput("phoneList", MODE_APPEND);
-                        }
-                        catch (FileNotFoundException e)
-                        {
-                            e.printStackTrace();
-                        }
-                        PrintStream ps = new PrintStream(os);
-                        // 将来电号码记录到文件中
-                        ps.println(new Date() + " 来电：" + number);
-                        ps.close();
-                        break;
-                    default:
-                        break;
+        //获得系统的音频对象
+        aManager = (AudioManager) getSystemService(Service.AUDIO_SERVICE);
+        //初始化mediaplayer对象,这里播放的是raw文件中的mp3资源
+        mePlayer = MediaPlayer.create(MainActivity.this, R.raw.chuandeng);
+        //设置循环播放:
+        mePlayer.setLooping(true);
+        bindViews();
+    }
+
+    private void bindViews() {
+        btn_start = (Button) findViewById(R.id.btn_start);
+        btn_stop = (Button) findViewById(R.id.btn_stop);
+        btn_higher = (Button) findViewById(R.id.btn_higher);
+        btn_lower = (Button) findViewById(R.id.btn_lower);
+        btn_quite = (Button) findViewById(R.id.btn_quite);
+
+        btn_start.setOnClickListener(this);
+        btn_stop.setOnClickListener(this);
+        btn_higher.setOnClickListener(this);
+        btn_lower.setOnClickListener(this);
+        btn_quite.setOnClickListener(this);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_start:
+                btn_stop.setEnabled(true);
+                mePlayer.start();
+                btn_start.setEnabled(false);
+                break;
+            case R.id.btn_stop:
+                btn_start.setEnabled(true);
+                mePlayer.pause();
+                btn_stop.setEnabled(false);
+                break;
+            case R.id.btn_higher:
+                // 指定调节音乐的音频，增大音量，而且显示音量图形示意
+                aManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_RAISE, AudioManager.FLAG_SHOW_UI);
+                break;
+            case R.id.btn_lower:
+                // 指定调节音乐的音频，降低音量，只有声音,不显示图形条
+                aManager.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_LOWER, AudioManager.FLAG_PLAY_SOUND);
+                break;
+            case R.id.btn_quite:
+                // 指定调节音乐的音频，根据isChecked确定是否需要静音
+                flag *= -1;
+                if (flag == -1) {
+                    aManager.setStreamMute(AudioManager.STREAM_MUSIC, true);   //API 23过期- -
+//                    aManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE,
+//                            AudioManager.FLAG_SHOW_UI);   //23以后的版本用这个
+                    btn_quite.setText("取消静音");
+                } else {
+                    aManager.setStreamMute(AudioManager.STREAM_MUSIC, false);//API 23过期- -
+//                    aManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE,
+//                            AudioManager.FLAG_SHOW_UI);  //23以后的版本用这个
+                    aManager.setMicrophoneMute(false);
+                    btn_quite.setText("静音");
                 }
-                super.onCallStateChanged(state, number);
-            }
-        };
-        // 监听电话通话状态的改变
-        tManager.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
+                break;
+        }
     }
 }

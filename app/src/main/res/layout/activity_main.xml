@@ -1,70 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="5dp"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-  <TextView
-      android:id="@+id/tv_phone1"
-      android:layout_width="match_parent"
+  <Button
+      android:id="@+id/btn_start"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="20sp" />
+      android:text="播放" />
 
-  <TextView
-      android:id="@+id/tv_phone2"
-      android:layout_width="match_parent"
+  <Button
+      android:id="@+id/btn_stop"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="20sp" />
+      android:enabled="false"
+      android:text="停止" />
 
-  <TextView
-      android:id="@+id/tv_phone3"
-      android:layout_width="match_parent"
+  <Button
+      android:id="@+id/btn_higher"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="20sp" />
+      android:text="调高音量" />
 
-  <TextView
-      android:id="@+id/tv_phone4"
-      android:layout_width="match_parent"
+  <Button
+      android:id="@+id/btn_lower"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="20sp" />
+      android:text="调低音量" />
 
-  <TextView
-      android:id="@+id/tv_phone5"
-      android:layout_width="match_parent"
+  <Button
+      android:id="@+id/btn_quite"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:textSize="20sp" />
-
-  <TextView
-      android:id="@+id/tv_phone6"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textSize="20sp" />
-
-  <TextView
-      android:id="@+id/tv_phone7"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textSize="20sp" />
-
-  <TextView
-      android:id="@+id/tv_phone8"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textSize="16sp" />
-
-  <TextView
-      android:id="@+id/tv_phone9"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textSize="20sp" />
-
-  <TextView
-      android:id="@+id/tv_rssi"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:textSize="20sp" />
+      android:text="静音" />
 
 </LinearLayout>
