@@ -30,6 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".CaClothes"/>
+        <activity android:name=".ClockActivity"/>
     </application>
 
 </manifest>

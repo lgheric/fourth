@@ -1,37 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
   <Button
-      android:id="@+id/btn_hasVibrator"
+      android:id="@+id/btn_set"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="判断是否有振动器" />
-
-
-  <Button
-      android:id="@+id/btn_short"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="短振动" />
+      android:text="设置闹钟" />
 
   <Button
-      android:id="@+id/btn_long"
+      android:id="@+id/btn_cancel"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="长振动" />
+      android:text="关闭闹钟"
+      android:visibility="gone" />
 
   <Button
-      android:id="@+id/btn_rhythm"
+      android:id="@+id/start_activity"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="节奏振动" />
+      android:text="开始响铃"
+       />
 
-  <Button
-      android:id="@+id/btn_cancle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="取消振动" />
 </LinearLayout>
