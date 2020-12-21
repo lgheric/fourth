@@ -1,5 +1,6 @@
 package com.eric.fourth;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -25,5 +26,17 @@ public class MainActivity extends AppCompatActivity{
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
             getSupportActionBar().hide();
 
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         }
+
+    public void setKeepScreenOn(Activity activity, boolean keepScreenOn)
+    {
+        if(keepScreenOn)
+        {
+            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }else{
+            activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
+    }
 }
