@@ -1,41 +1,65 @@
 package com.eric.fourth;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.telephony.PhoneStateListener;
-import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.Date;
 
-    private TextView tv_rssi;
-    private MyPhoneStateListener mpsListener;
-    private TelephonyManager tManager;
-
+public class MainActivity extends AppCompatActivity
+{
+    TelephonyManager tManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tManager = ((TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE));
-        tv_rssi = (TextView) findViewById(R.id.tv_rssi);
-        mpsListener  = new MyPhoneStateListener();
-        tManager.listen(mpsListener,290);
-    }
-
-    private class MyPhoneStateListener extends PhoneStateListener {
-        private int asu = 0,lastSignal = 0;
-        @SuppressLint("SetTextI18n")
-        @Override
-        public void onSignalStrengthsChanged(SignalStrength signalStrength) {
-            asu = signalStrength.getGsmSignalStrength();
-            lastSignal = -113 + 2 * asu;
-            tv_rssi.setText("当前手机的信号强度：" + lastSignal + " dBm" );
-            super.onSignalStrengthsChanged(signalStrength);
-        }
+        // 取得TelephonyManager对象
+        tManager = (TelephonyManager)
+                getSystemService(Context.TELEPHONY_SERVICE);
+        // 创建一个通话状态监听器
+        PhoneStateListener listener = new PhoneStateListener()
+        {
+            @Override
+            public void onCallStateChanged(int state, String number)
+            {
+                switch (state)
+                {
+                    // 无任何状态
+                    case TelephonyManager.CALL_STATE_IDLE:
+                        break;
+                    case TelephonyManager.CALL_STATE_OFFHOOK:
+                        break;
+                    // 来电铃响时
+                    case TelephonyManager.CALL_STATE_RINGING:
+                        OutputStream os = null;
+                        try
+                        {
+                            os = openFileOutput("phoneList", MODE_APPEND);
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        PrintStream ps = new PrintStream(os);
+                        // 将来电号码记录到文件中
+                        ps.println(new Date() + " 来电：" + number);
+                        ps.close();
+                        break;
+                    default:
+                        break;
+                }
+                super.onCallStateChanged(state, number);
+            }
+        };
+        // 监听电话通话状态的改变
+        tManager.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
     }
 }
