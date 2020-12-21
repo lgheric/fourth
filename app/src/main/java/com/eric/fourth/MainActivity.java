@@ -20,5 +20,10 @@ public class MainActivity extends AppCompatActivity{
             wManager.getDefaultDisplay().getMetrics(dm);
             Toast.makeText(MainActivity.this, "当前手机的屏幕宽高：" + dm.widthPixels + "*" +
                     dm.heightPixels, Toast.LENGTH_SHORT).show();
+
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getSupportActionBar().hide();
+
         }
 }
