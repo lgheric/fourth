@@ -1,34 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/LinearLayout1"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:padding="5dp"
+    tools:context=".MainActivity">
 
   <Button
-      android:id="@+id/btn_set"
+      android:id="@+id/btn_on"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="设置闹钟" />
+      android:text="开启悬浮框" />
 
-  <Button
-      android:id="@+id/btn_cancel"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="关闭闹钟"
-      android:visibility="gone" />
-
-  <Button
-      android:id="@+id/start_activity"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="开始响铃"
-       />
-  <Button
-      android:id="@+id/btn_start"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="开始屏保"
-       />
-
-</LinearLayout>
+</RelativeLayout>
