@@ -8,4 +8,20 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="动态加载布局"/>
+
+  <Button
+      android:id="@+id/btn_set_wallpaper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/btnLoad"
+      android:text="设置壁纸"/>
+
+  <Button
+      android:id="@+id/btn_select_wallpaper"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/btn_set_wallpaper"
+      android:text="选择壁纸" />
+
+
 </RelativeLayout>

@@ -1,15 +1,16 @@
 package com.eric.fourth;
 
-import android.graphics.Color;
+import android.annotation.SuppressLint;
+import android.app.WallpaperManager;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -18,31 +19,34 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btn_set_wallpaper = (Button) findViewById(R.id.btn_set_wallpaper);
 
-        //1,获取LayoutInflater 对象
-        final LayoutInflater inflater = LayoutInflater.from(this);
+        btn_set_wallpaper.setOnClickListener(new View.OnClickListener(){
 
-        //2,获得外部容器对象
-        final RelativeLayout rly = (RelativeLayout) findViewById(R.id.RelativeLayout1);
-
-        //给外部容器里的button对象添加监听事件
-        Button btnLoad = findViewById(R.id.btnLoad);
-        btnLoad.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View v) {
-                //获得要添加的布局对象
-                LinearLayout ly = (LinearLayout) inflater.inflate(R.layout.inflate, null, false).findViewById(R.id.ly_inflate);
-
-                //设置加载布局的大小
-                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                //设置加载布局的位置
-                lp.addRule(RelativeLayout.CENTER_IN_PARENT);
-                rly.addView(ly,lp);
-
-
+                WallpaperManager wManager = WallpaperManager.getInstance(getApplicationContext());
+                try {
+                    wManager.setResource(R.mipmap.pre5);
+                    Toast.makeText(getApplicationContext(),"壁纸设置成功。",Toast.LENGTH_LONG).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
+
+        Button btn_select_wallpaper = (Button) findViewById(R.id.btn_select_wallpaper);
+
+        btn_select_wallpaper.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent chooseIntent = new Intent(Intent.ACTION_SET_WALLPAPER);
+                startActivity(Intent.createChooser(chooseIntent, "选择壁纸"));
+            }
+        });
     }
 
 }
