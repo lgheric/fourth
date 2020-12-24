@@ -22,6 +22,12 @@
       android:layout_height="wrap_content"
       android:text="获取指定的LocationProvider" />
 
+  <Button
+      android:id="@+id/btn_four"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="动态获取位置信息" />
+
   <TextView
       android:id="@+id/tv_result"
       android:layout_width="match_parent"

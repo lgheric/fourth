@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_one;
     private Button btn_two;
     private Button btn_three;
+    private Button btn_four;
     private TextView tv_result;
     private LocationManager lm;
     private List<String> pNames = new ArrayList<String>(); // 存放LocationProvider名称的集合
@@ -40,11 +41,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_one = (Button) findViewById(R.id.btn_one);
         btn_two = (Button) findViewById(R.id.btn_two);
         btn_three = (Button) findViewById(R.id.btn_three);
+        btn_four = (Button) findViewById(R.id.btn_four);
         tv_result = (TextView) findViewById(R.id.tv_result);
 
         btn_one.setOnClickListener(this);
         btn_two.setOnClickListener(this);
         btn_three.setOnClickListener(this);
+        btn_four.setOnClickListener(this);
     }
 
 
@@ -70,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 pNames.clear();
                 pNames.add(lm.getProvider(LocationManager.GPS_PROVIDER).getName()); //指定名称
                 tv_result.setText(getProvider());
+                break;
+            case R.id.btn_four:
+                startActivity(new Intent(this,LocationActivity.class));
                 break;
         }
     }

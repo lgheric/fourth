@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -52,6 +53,7 @@
         </activity>
         <activity android:name=".CaClothes" />
         <activity android:name=".ClockActivity" />
+        <activity android:name=".LocationActivity" />
     </application>
 
 </manifest>
