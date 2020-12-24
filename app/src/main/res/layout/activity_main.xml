@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-  <Button
-      android:id="@+id/btnLoad"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="动态加载布局"/>
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
   <Button
-      android:id="@+id/btn_set_wallpaper"
-      android:layout_width="match_parent"
+      android:id="@+id/btn_on"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/btnLoad"
-      android:text="设置壁纸"/>
+      android:text="开启自动换壁纸" />
 
   <Button
-      android:id="@+id/btn_select_wallpaper"
-      android:layout_width="match_parent"
+      android:id="@+id/btn_off"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/btn_set_wallpaper"
-      android:text="选择壁纸" />
+      android:text="关闭自动换壁纸" />
 
+  <Button
+      android:id="@+id/btn_clean"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="清除壁纸" />
 
-</RelativeLayout>
+</LinearLayout>

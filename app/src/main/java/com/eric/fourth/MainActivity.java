@@ -1,6 +1,8 @@
 package com.eric.fourth;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,43 +14,58 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button btn_on;
+    private Button btn_off;
+    private Button btn_clean;
+    private AlarmManager aManager;
+    private PendingIntent pi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //将Activity的背景设置为壁纸背景
-        setTheme(android.R.style.Theme_Wallpaper_NoTitleBar_Fullscreen);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //①获得AlarmManager对象:
+        aManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        //②指定要启动的Service,并指明动作是Servce:
+        Intent intent = new Intent(MainActivity.this, WallPaperService.class);
+        pi = PendingIntent.getService(MainActivity.this, 0, intent, 0);
+        bindViews();
+    }
 
-        Button btn_set_wallpaper = (Button) findViewById(R.id.btn_set_wallpaper);
+    private void bindViews() {
+        btn_on = (Button) findViewById(R.id.btn_on);
+        btn_off = (Button) findViewById(R.id.btn_off);
+        btn_clean = (Button) findViewById(R.id.btn_clean);
+        btn_on.setOnClickListener(this);
+        btn_off.setOnClickListener(this);
+        btn_clean.setOnClickListener(this);
+    }
 
-        btn_set_wallpaper.setOnClickListener(new View.OnClickListener(){
-
-            @SuppressLint("ResourceType")
-            @Override
-            public void onClick(View v) {
-                WallpaperManager wManager = WallpaperManager.getInstance(getApplicationContext());
+    @SuppressLint({"NonConstantResourceId", "ShortAlarm"})
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_on:
+                aManager.setRepeating(AlarmManager.RTC_WAKEUP, 0, 3000, pi);
+                btn_on.setEnabled(false);
+                btn_off.setEnabled(true);
+                Toast.makeText(MainActivity.this, "自动更换壁纸设置成功", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_off:
+                btn_on.setEnabled(true);
+                btn_off.setEnabled(false);
+                aManager.cancel(pi);
+                break;
+            case R.id.btn_clean:
                 try {
-                    wManager.setResource(R.mipmap.pre5);
-                    Toast.makeText(getApplicationContext(),"壁纸设置成功。",Toast.LENGTH_LONG).show();
+                    WallpaperManager.getInstance(getApplicationContext()).clear();
+                    Toast.makeText(MainActivity.this, "清除壁纸成功~", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        });
-
-
-        Button btn_select_wallpaper = (Button) findViewById(R.id.btn_select_wallpaper);
-
-        btn_select_wallpaper.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent chooseIntent = new Intent(Intent.ACTION_SET_WALLPAPER);
-                startActivity(Intent.createChooser(chooseIntent, "选择壁纸"));
-            }
-        });
+                break;
+        }
     }
-
 }
