@@ -1,40 +1,28 @@
 package com.eric.fourth;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.LayoutInflater;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private Button btn_on;
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bindViews();
+
+        Button btnOne = new Button(this);
+        btnOne.setText("我是动态添加的按钮");
+
+        RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        lp2.addRule(RelativeLayout.CENTER_IN_PARENT);
+
+        RelativeLayout rly = (RelativeLayout) findViewById(R.id.RelativeLayout1);
+        rly.addView(btnOne,lp2);
     }
 
-    private void bindViews() {
-        btn_on = (Button) findViewById(R.id.btn_on);
-        btn_on.setOnClickListener(this);
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_on:
-                Intent mIntent = new Intent(MainActivity.this, MainService.class);
-                mIntent.putExtra(MainService.OPERATION, MainService.OPERATION_SHOW);
-                startService(mIntent);
-                Toast.makeText(MainActivity.this, "悬浮框已开启~", Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
 }
