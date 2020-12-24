@@ -2,9 +2,11 @@ package com.eric.fourth;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         bindViews();
+        if(!isGpsAble(lm)){
+            openGPS2();
+        }
     }
 
     private void bindViews() {
@@ -76,5 +81,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             sb.append(s).append("\n");
         }
         return sb.toString();
+    }
+
+    private boolean isGpsAble(LocationManager lm){
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    //打开位置信息设置页面让用户自己设置
+    private void openGPS2(){
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivityForResult(intent,0);
     }
 }
