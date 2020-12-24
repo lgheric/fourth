@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //将Activity的背景设置为壁纸背景
+        setTheme(android.R.style.Theme_Wallpaper_NoTitleBar_Fullscreen);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
