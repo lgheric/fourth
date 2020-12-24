@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btn_two;
     private Button btn_three;
     private Button btn_four;
+    private Button btn_five;
     private TextView tv_result;
     private LocationManager lm;
     private List<String> pNames = new ArrayList<String>(); // 存放LocationProvider名称的集合
@@ -42,14 +43,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_two = (Button) findViewById(R.id.btn_two);
         btn_three = (Button) findViewById(R.id.btn_three);
         btn_four = (Button) findViewById(R.id.btn_four);
+        btn_five = (Button) findViewById(R.id.btn_five);
         tv_result = (TextView) findViewById(R.id.tv_result);
 
         btn_one.setOnClickListener(this);
         btn_two.setOnClickListener(this);
         btn_three.setOnClickListener(this);
         btn_four.setOnClickListener(this);
+        btn_five.setOnClickListener(this);
     }
-
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -76,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_four:
                 startActivity(new Intent(this,LocationActivity.class));
+                break;
+            case R.id.btn_five:
+                startActivity(new Intent(this,ProximityActivity.class));
                 break;
         }
     }

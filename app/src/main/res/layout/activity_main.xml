@@ -28,6 +28,12 @@
       android:layout_height="wrap_content"
       android:text="动态获取位置信息" />
 
+  <Button
+      android:id="@+id/btn_five"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="临近某地警告" />
+
   <TextView
       android:id="@+id/tv_result"
       android:layout_width="match_parent"

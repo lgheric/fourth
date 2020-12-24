@@ -54,6 +54,8 @@
         <activity android:name=".CaClothes" />
         <activity android:name=".ClockActivity" />
         <activity android:name=".LocationActivity" />
+        <activity android:name=".ProximityActivity" />
+        <receiver android:name=".ProximityReceiver"/>
     </application>
 
 </manifest>
